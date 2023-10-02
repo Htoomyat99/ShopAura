@@ -1,14 +1,10 @@
 import {View, Text, SafeAreaView, StatusBar} from 'react-native';
 import React from 'react';
-import {palette} from './helpers/theme/color';
+import {palette} from './src/utils/helpers/theme/color';
+import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
-  return (
-    <SafeAreaView>
-      <StatusBar barStyle="light-content" backgroundColor={palette.primary} />
-      <Text>App</Text>
-    </SafeAreaView>
-  );
+  return <AppNavigator />;
 };
 
 export default App;

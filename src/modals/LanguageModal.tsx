@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const UnAuthNavigator = () => {
+const LanguageModal = () => {
   return (
     <View>
-      <Text>UnAuthNavigator</Text>
+      <Text>LanguageModal</Text>
     </View>
   );
 };
 
-export default UnAuthNavigator;
+export default LanguageModal;

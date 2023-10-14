@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501200952687",
+    "project_id": "shopaura-16dc1",
+    "storage_bucket": "shopaura-16dc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501200952687:android:ac70a6b9859fc6b6285c9a",
+        "android_client_info": {
+          "package_name": "com.shopAura"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr9-otZpCU43pUARLVNv8z0YZIUvm50rQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

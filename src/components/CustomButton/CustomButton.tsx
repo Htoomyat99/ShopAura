@@ -25,7 +25,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: palette.primary,
     alignItems: 'center',
-    width: wp(80),
+    width: wp(85),
     borderRadius: wp(0.8),
   },
   text: {

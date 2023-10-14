@@ -3,7 +3,7 @@ import '@react-native-firebase/auth';
 
 const RNfirebaseConfig = {
   apiKey: 'AIzaSyDr9-otZpCU43pUARLVNv8z0YZIUvm50rQ',
-  //   authDomain: 'note-app-rn.firebaseapp.com',
+  authDomain: 'shopaura.firebaseapp.com',
   projectId: 'shopaura-16dc1',
   storageBucket: 'shopaura-16dc1.appspot.com',
   messagingSenderId: '501200952687',

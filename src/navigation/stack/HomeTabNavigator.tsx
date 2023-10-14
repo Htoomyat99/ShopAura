@@ -6,6 +6,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Auth from '../../screens/services/auth';
+import {palette} from '../../utils/helpers/theme/color';
 
 const HomeTabNavigator = () => {
   const logOutAction = () => {
@@ -13,12 +14,13 @@ const HomeTabNavigator = () => {
   };
 
   return (
-    <View>
+    <View style={{backgroundColor: palette.white, flex: 1}}>
       <Text
         style={{
           textAlign: 'center',
           marginTop: hp(40),
           marginBottom: hp(3),
+          color: palette.primary,
         }}>
         HomeTabNavigator
       </Text>

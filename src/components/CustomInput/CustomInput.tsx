@@ -48,6 +48,6 @@ const style = StyleSheet.create({
     borderColor: palette.gary600,
     color: palette.primary,
     fontSize: hp(1.7),
-    width: wp(80),
+    width: wp(85),
   },
 });

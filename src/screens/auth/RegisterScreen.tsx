@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {palette} from '../../utils/helpers/theme/color';
 import {StyleSheet} from 'react-native';
 import {
@@ -16,13 +16,16 @@ import {
 } from 'react-native-responsive-screen';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import Auth from '../services/auth';
+// import Auth from '../services/auth';
 import FaceBook from '../../../assets/icons/FaceBook';
 import Google from '../../../assets/icons/Google';
 import EyeClose from '../../../assets/icons/EyeClose';
 import EyeOpen from '../../../assets/icons/EyeOpen';
+import {AuthContext} from '../../context/context';
 
 const RegisterScreen = ({navigation}: any) => {
+  const {getAuth} = useContext(AuthContext);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,7 +48,8 @@ const RegisterScreen = ({navigation}: any) => {
   };
 
   const SignUpAction = () => {
-    Auth.signUp(name, email, password);
+    // Auth.signUp({name, email, password});
+    getAuth(true);
   };
 
   const goLogin = () => {
@@ -61,7 +65,7 @@ const RegisterScreen = ({navigation}: any) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <StatusBar backgroundColor={palette.primary} barStyle={'light-content'} />
 
       <View style={style.logoContainer}>

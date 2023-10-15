@@ -1,16 +1,20 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Auth from '../../screens/services/auth';
+// import Auth from '../../screens/services/auth';
 import {palette} from '../../utils/helpers/theme/color';
+import {AuthContext} from '../../context/context';
 
 const HomeTabNavigator = () => {
+  const {getAuth} = useContext(AuthContext);
+
   const logOutAction = () => {
-    Auth.signOut();
+    // Auth.signOut();
+    getAuth(false);
   };
 
   return (

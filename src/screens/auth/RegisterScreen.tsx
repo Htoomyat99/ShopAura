@@ -24,11 +24,11 @@ import EyeOpen from '../../../assets/icons/EyeOpen';
 import {AuthContext} from '../../context/context';
 
 const RegisterScreen = ({navigation}: any) => {
-  const {getAuth} = useContext(AuthContext);
+  const {getAuth, getInitializing} = useContext(AuthContext);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState<String | null>(null);
+  const [email, setEmail] = useState<String | null>(null);
+  const [password, setPassword] = useState<String | null>(null);
   const [hide, setHide] = useState(true);
 
   const onChangeName = (val: string) => {
@@ -49,7 +49,17 @@ const RegisterScreen = ({navigation}: any) => {
 
   const SignUpAction = () => {
     // Auth.signUp({name, email, password});
-    getAuth(true);
+    if (email && name && password) {
+      getInitializing(true);
+      setTimeout(() => {
+        getInitializing(false);
+      }, 1000);
+      getAuth(true);
+    } else {
+      navigation.navigate('InvalidAlertModal', {
+        alertText: 'Fill the information completely.',
+      });
+    }
   };
 
   const goLogin = () => {
@@ -57,11 +67,15 @@ const RegisterScreen = ({navigation}: any) => {
   };
 
   const faceBookHandler = () => {
-    console.warn(`Can't connect with FaceBook at the moment`);
+    navigation.navigate('InvalidAlertModal', {
+      alertText: `Cant't connect with Facebook at the moment`,
+    });
   };
 
   const googleHandler = () => {
-    console.warn(`Can't connect with Google at the moment`);
+    navigation.navigate('InvalidAlertModal', {
+      alertText: `Cant't connect with Google at the moment`,
+    });
   };
 
   return (

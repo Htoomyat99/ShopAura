@@ -24,23 +24,18 @@ import EyeClose from '../../../assets/icons/EyeClose';
 import {AuthContext} from '../../context/context';
 
 const RegisterScreen = ({navigation}: any) => {
-  const {getAuth} = useContext(AuthContext);
+  const {getAuth, getInitializing} = useContext(AuthContext);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [signInEmail, setSignInEmail] = useState<string | null>(null);
+  const [signInPass, setSignInPass] = useState<string | null>(null);
   const [hide, setHide] = useState(true);
 
-  const onChangeName = (val: string) => {
-    setName(val);
-  };
-
   const onChangeEmail = (val: string) => {
-    setEmail(val);
+    setSignInEmail(val);
   };
 
   const onChangePassword = (val: any) => {
-    setPassword(val);
+    setSignInPass(val);
   };
 
   const hideAction = () => {
@@ -49,7 +44,17 @@ const RegisterScreen = ({navigation}: any) => {
 
   const SignUpAction = () => {
     // Auth.signUp({name, email, password});
-    getAuth(true);
+    if (signInEmail && signInPass) {
+      getInitializing(true);
+      setTimeout(() => {
+        getInitializing(false);
+      }, 1000);
+      getAuth(true);
+    } else {
+      navigation.navigate('InvalidAlertModal', {
+        alertText: 'Fill the information completely.',
+      });
+    }
   };
 
   const goLogin = () => {
@@ -57,13 +62,16 @@ const RegisterScreen = ({navigation}: any) => {
   };
 
   const faceBookHandler = () => {
-    console.warn(`Can't connect with FaceBook at the moment`);
+    navigation.navigate('InvalidAlertModal', {
+      alertText: `Cant't connect with Facebook at the moment`,
+    });
   };
 
   const googleHandler = () => {
-    console.warn(`Can't connect with Google at the moment`);
+    navigation.navigate('InvalidAlertModal', {
+      alertText: `Cant't connect with Google at the moment`,
+    });
   };
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <StatusBar backgroundColor={palette.primary} barStyle={'light-content'} />
@@ -81,13 +89,13 @@ const RegisterScreen = ({navigation}: any) => {
 
         <CustomInput
           placeholder="Email..."
-          text={email}
+          text={signInEmail}
           onChangeText={onChangeEmail}
           secureText={false}
         />
         <CustomInput
           placeholder="Password"
-          text={password}
+          text={signInPass}
           onChangeText={onChangePassword}
           secureText={hide ? true : false}
         />

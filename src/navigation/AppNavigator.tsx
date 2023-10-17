@@ -1,4 +1,4 @@
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, Text, ActivityIndicator, Modal, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthNavigator from './stack/AuthNavigator';
@@ -7,6 +7,8 @@ import HomeTabNavigator from './stack/HomeTabNavigator';
 import {palette} from '../utils/helpers/theme/color';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {AuthContext} from '../context/context';
+import LoadingModal from '../modals/LoadingModal';
+import InvalidAlertModal from '../modals/InvalidAlertModal';
 
 const AppNavigator = () => {
   const [initializing, setInitializing] = useState(false);
@@ -14,9 +16,13 @@ const AppNavigator = () => {
 
   const context = {
     auth,
+    initializing,
 
     getAuth: (val: boolean) => {
       setAuth(val);
+    },
+    getInitializing: (val: boolean) => {
+      setInitializing(val);
     },
   };
 
@@ -31,21 +37,7 @@ const AppNavigator = () => {
   // }, []);
 
   if (initializing) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          backgroundColor: palette.white,
-        }}>
-        <View style={{marginTop: hp(35)}}>
-          <ActivityIndicator size={'large'} color={palette.primary} />
-        </View>
-        <Text style={{color: palette.primary, marginTop: hp(3)}}>
-          Loading...
-        </Text>
-      </View>
-    );
+    return <LoadingModal />;
   }
 
   return (

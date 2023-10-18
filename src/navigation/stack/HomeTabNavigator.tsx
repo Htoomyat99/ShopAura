@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useContext, useEffect} from 'react';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {
@@ -8,18 +8,18 @@ import {
 // import Auth from '../../screens/services/auth';
 import {palette} from '../../helpers/theme/color';
 import {AuthContext} from '../../context/context';
+import appStorage from '../../utils/appStorage';
+import {useLocale} from '../../hooks/useLocale';
 
 const HomeTabNavigator = () => {
-  const {getAuth, userInfo} = useContext(AuthContext);
+  const {getAuth, userInfo, getLang} = useContext(AuthContext);
+  const locale = useLocale();
 
   const logOutAction = () => {
     // Auth.signOut();
+    appStorage.deleteItem('@token');
     getAuth(false);
   };
-
-  useEffect(() => {
-    console.log('userInfo in homeTab>>>', userInfo);
-  }, []);
 
   return (
     <View style={{backgroundColor: palette.white, flex: 1}}>
@@ -30,9 +30,15 @@ const HomeTabNavigator = () => {
           marginBottom: hp(3),
           color: palette.primary,
         }}>
-        {userInfo?.email}
+        {userInfo?.name}
       </Text>
-      <CustomButton btnText="Log Out" onPress={logOutAction} />
+      <CustomButton btnText={locale.logOut} onPress={logOutAction} />
+      <TouchableOpacity onPress={() => getLang('mm')}>
+        <Text>Myanmar</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => getLang('en')}>
+        <Text>English</Text>
+      </TouchableOpacity>
     </View>
   );
 };

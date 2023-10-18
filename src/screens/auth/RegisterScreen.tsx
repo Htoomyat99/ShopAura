@@ -32,12 +32,6 @@ const RegisterScreen = ({navigation}: any) => {
   const [password, setPassword] = useState<String | null>(null);
   const [hide, setHide] = useState(true);
 
-  const userInfo = {
-    name: name,
-    email: email,
-    password: password,
-  };
-
   const onChangeName = (val: string) => {
     setName(val);
   };
@@ -55,16 +49,21 @@ const RegisterScreen = ({navigation}: any) => {
   };
 
   const SignUpAction = () => {
+    const userInfo = {
+      name: name,
+      email: email,
+      password: password,
+    };
     // Auth.signUp({name, email, password});
     if (email && name && password) {
       getInitializing(true);
       setTimeout(() => {
         getInitializing(false);
       }, 1000);
-      getAuth(true);
-      const dataInRegi = appStorage.setItem('@userInfo', 'mg mg');
-      console.log('dataInRegister >>>', dataInRegi);
+      appStorage.setItem('@userInfo', JSON.stringify(userInfo));
+      appStorage.setItem('@token', '1234567890');
       getUserInfo(userInfo);
+      getAuth(true);
     } else {
       navigation.navigate('InvalidAlertModal', {
         alertText: 'Fill the information completely.',

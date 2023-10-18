@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -24,7 +24,7 @@ import {AuthContext} from '../../context/context';
 import {palette} from '../../helpers/theme/color';
 
 const RegisterScreen = ({navigation}: any) => {
-  const {getAuth, getInitializing} = useContext(AuthContext);
+  const {getAuth, getInitializing, userInfo} = useContext(AuthContext);
 
   const [signInEmail, setSignInEmail] = useState<string | null>(null);
   const [signInPass, setSignInPass] = useState<string | null>(null);
@@ -42,14 +42,24 @@ const RegisterScreen = ({navigation}: any) => {
     setHide(!hide);
   };
 
+  useEffect(() => {
+    console.log('userInfo in login >>>', userInfo);
+  }, []);
+
   const SignUpAction = () => {
     // Auth.signUp({name, email, password});
     if (signInEmail && signInPass) {
-      getInitializing(true);
-      setTimeout(() => {
-        getInitializing(false);
-      }, 1000);
-      getAuth(true);
+      if (signInEmail === userInfo.email && signInPass === userInfo.password) {
+        getInitializing(true);
+        setTimeout(() => {
+          getInitializing(false);
+        }, 1000);
+        getAuth(true);
+      } else {
+        navigation.navigate('InvalidAlertModal', {
+          alertText: 'Email or Password is incorrect!',
+        });
+      }
     } else {
       navigation.navigate('InvalidAlertModal', {
         alertText: 'Fill the information completely.',

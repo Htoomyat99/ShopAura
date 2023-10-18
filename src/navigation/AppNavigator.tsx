@@ -14,11 +14,13 @@ const AppNavigator = () => {
   const [initializing, setInitializing] = useState(false);
   const [auth, setAuth] = useState(false);
   const [userInfo, setUserInfo] = useState<Object | null>(null);
+  const [lang, setLang] = useState('en');
 
   const context = {
     auth,
     initializing,
     userInfo,
+    lang,
 
     getAuth: (val: boolean) => {
       setAuth(val);
@@ -29,13 +31,31 @@ const AppNavigator = () => {
     getUserInfo: (val: object) => {
       setUserInfo(val);
     },
+    getLang: (val: string) => {
+      setLang(val);
+    },
   };
 
   useEffect(() => {
-    const userData = appStorage.getItem('@userInfo');
-    // setUserInfo(userData);
-    console.log('userData in appNavigator is >>>', userData);
+    getData();
   }, []);
+
+  const getData = () => {
+    try {
+      const token = appStorage.getItem('@token');
+      const userData = appStorage.getItem('@userInfo');
+      setUserInfo(JSON.parse(userData));
+      if (token) {
+        setAuth(true);
+        setUserInfo(JSON.parse(userData));
+      } else {
+        setAuth(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setAuth(false);
+    }
+  };
 
   // function onAuthStateChange(user: any) {
   //   setUser(user);

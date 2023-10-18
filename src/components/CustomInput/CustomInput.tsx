@@ -1,11 +1,11 @@
 import {View, Text, StatusBar, TextInput, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
-import {palette} from '../../utils/helpers/theme/color';
 import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {palette} from '../../helpers/theme/color';
 
 const CustomInput = ({
   placeholder,

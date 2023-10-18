@@ -1,10 +1,10 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
-import {palette} from '../../utils/helpers/theme/color';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {palette} from '../../helpers/theme/color';
 
 const CustomButton = ({btnText, onPress}: {btnText: string; onPress: any}) => {
   return (

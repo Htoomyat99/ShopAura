@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
-import {palette} from '../../utils/helpers/theme/color';
 import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -22,14 +21,22 @@ import Google from '../../../assets/icons/Google';
 import EyeClose from '../../../assets/icons/EyeClose';
 import EyeOpen from '../../../assets/icons/EyeOpen';
 import {AuthContext} from '../../context/context';
+import {palette} from '../../helpers/theme/color';
+import appStorage from '../../utils/appStorage';
 
 const RegisterScreen = ({navigation}: any) => {
-  const {getAuth, getInitializing} = useContext(AuthContext);
+  const {getAuth, getInitializing, getUserInfo} = useContext(AuthContext);
 
   const [name, setName] = useState<String | null>(null);
   const [email, setEmail] = useState<String | null>(null);
   const [password, setPassword] = useState<String | null>(null);
   const [hide, setHide] = useState(true);
+
+  const userInfo = {
+    name: name,
+    email: email,
+    password: password,
+  };
 
   const onChangeName = (val: string) => {
     setName(val);
@@ -55,6 +62,9 @@ const RegisterScreen = ({navigation}: any) => {
         getInitializing(false);
       }, 1000);
       getAuth(true);
+      const dataInRegi = appStorage.setItem('@userInfo', 'mg mg');
+      console.log('dataInRegister >>>', dataInRegi);
+      getUserInfo(userInfo);
     } else {
       navigation.navigate('InvalidAlertModal', {
         alertText: 'Fill the information completely.',

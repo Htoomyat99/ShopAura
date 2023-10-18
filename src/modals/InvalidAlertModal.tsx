@@ -1,10 +1,10 @@
 import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {palette} from '../utils/helpers/theme/color';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {palette} from '../helpers/theme/color';
 
 const InvalidAlertModal = ({navigation, route}: any) => {
   const {alertText} = route.params;

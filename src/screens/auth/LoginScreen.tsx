@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
-import {palette} from '../../utils/helpers/theme/color';
 import {StyleSheet} from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -22,6 +21,7 @@ import Google from '../../../assets/icons/Google';
 import EyeOpen from '../../../assets/icons/EyeOpen';
 import EyeClose from '../../../assets/icons/EyeClose';
 import {AuthContext} from '../../context/context';
+import {palette} from '../../helpers/theme/color';
 
 const RegisterScreen = ({navigation}: any) => {
   const {getAuth, getInitializing} = useContext(AuthContext);

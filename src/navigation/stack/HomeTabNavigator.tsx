@@ -1,21 +1,25 @@
 import {View, Text} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 // import Auth from '../../screens/services/auth';
-import {palette} from '../../utils/helpers/theme/color';
+import {palette} from '../../helpers/theme/color';
 import {AuthContext} from '../../context/context';
 
 const HomeTabNavigator = () => {
-  const {getAuth} = useContext(AuthContext);
+  const {getAuth, userInfo} = useContext(AuthContext);
 
   const logOutAction = () => {
     // Auth.signOut();
     getAuth(false);
   };
+
+  useEffect(() => {
+    console.log('userInfo in homeTab>>>', userInfo);
+  }, []);
 
   return (
     <View style={{backgroundColor: palette.white, flex: 1}}>
@@ -26,7 +30,7 @@ const HomeTabNavigator = () => {
           marginBottom: hp(3),
           color: palette.primary,
         }}>
-        HomeTabNavigator
+        {userInfo?.email}
       </Text>
       <CustomButton btnText="Log Out" onPress={logOutAction} />
     </View>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path, Circle} from 'react-native-svg';
-import {palette} from '../../src/utils/helpers/theme/color';
+import {palette} from '../../src/helpers/theme/color';
 /* SVGR has dropped some elements not supported by react-native-svg: style */
 const EyeOpen = props => (
   <Svg

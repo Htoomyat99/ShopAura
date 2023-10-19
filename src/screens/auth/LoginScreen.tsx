@@ -22,8 +22,10 @@ import EyeOpen from '../../../assets/icons/EyeOpen';
 import EyeClose from '../../../assets/icons/EyeClose';
 import {AuthContext} from '../../context/context';
 import {palette} from '../../helpers/theme/color';
+import {useLocale} from '../../hooks/useLocale';
 
 const RegisterScreen = ({navigation}: any) => {
+  const locale = useLocale();
   const {getAuth, getInitializing, userInfo} = useContext(AuthContext);
 
   const [signInEmail, setSignInEmail] = useState<string | null>(null);
@@ -49,20 +51,29 @@ const RegisterScreen = ({navigation}: any) => {
   const SignUpAction = () => {
     // Auth.signUp({name, email, password});
     if (signInEmail && signInPass) {
-      if (signInEmail === userInfo.email && signInPass === userInfo.password) {
-        getInitializing(true);
-        setTimeout(() => {
-          getInitializing(false);
-        }, 1000);
-        getAuth(true);
+      if (userInfo) {
+        if (
+          signInEmail === userInfo.email &&
+          signInPass === userInfo.password
+        ) {
+          getInitializing(true);
+          setTimeout(() => {
+            getInitializing(false);
+          }, 1000);
+          getAuth(true);
+        } else {
+          navigation.navigate('InvalidAlertModal', {
+            alertText: locale.incorrectEmailOrPass,
+          });
+        }
       } else {
         navigation.navigate('InvalidAlertModal', {
-          alertText: 'Email or Password is incorrect!',
+          alertText: locale.signUpFirst,
         });
       }
     } else {
       navigation.navigate('InvalidAlertModal', {
-        alertText: 'Fill the information completely.',
+        alertText: locale.fillInfoCompletely,
       });
     }
   };
@@ -73,13 +84,13 @@ const RegisterScreen = ({navigation}: any) => {
 
   const faceBookHandler = () => {
     navigation.navigate('InvalidAlertModal', {
-      alertText: `Cant't connect with Facebook at the moment`,
+      alertText: locale.cantConnectWithFb,
     });
   };
 
   const googleHandler = () => {
     navigation.navigate('InvalidAlertModal', {
-      alertText: `Cant't connect with Google at the moment`,
+      alertText: locale.cangConnectWithGoogle,
     });
   };
   return (
@@ -91,20 +102,20 @@ const RegisterScreen = ({navigation}: any) => {
           source={require('../../../assets/images/shopAura.png')}
           style={{width: hp(25), height: hp(20)}}
         />
-        <Text style={style.logoName}>Shop Aura</Text>
+        <Text style={style.logoName}>{locale.title}</Text>
       </View>
 
       <View style={style.signUpContainer}>
-        <Text style={style.headerText}>Sign In</Text>
+        <Text style={style.headerText}>{locale.singIn}</Text>
 
         <CustomInput
-          placeholder="Email..."
+          placeholder={locale.email}
           text={signInEmail}
           onChangeText={onChangeEmail}
           secureText={false}
         />
         <CustomInput
-          placeholder="Password"
+          placeholder={locale.password}
           text={signInPass}
           onChangeText={onChangePassword}
           secureText={hide ? true : false}
@@ -127,17 +138,17 @@ const RegisterScreen = ({navigation}: any) => {
         )}
 
         <TouchableOpacity activeOpacity={0.7}>
-          <Text style={style.forgotPass}>Forgot Password?</Text>
+          <Text style={style.forgotPass}>{locale.forgotPass}</Text>
         </TouchableOpacity>
 
         <View style={{marginTop: hp(5)}}>
-          <CustomButton btnText="Sign In" onPress={SignUpAction} />
+          <CustomButton btnText={locale.singIn} onPress={SignUpAction} />
         </View>
 
         <View style={{alignItems: 'center', marginTop: hp(3)}}>
           <View style={style.lineContainer}>
             <View style={style.line}></View>
-            <Text style={style.signUpWith}>Or Log-In With</Text>
+            <Text style={style.signUpWith}>{locale.loginWith}</Text>
             <View style={style.line}></View>
           </View>
         </View>
@@ -161,7 +172,7 @@ const RegisterScreen = ({navigation}: any) => {
           style={style.footerContainer}
           activeOpacity={0.7}
           onPress={goLogin}>
-          <Text style={style.footerText}>Don't have an account? Register</Text>
+          <Text style={style.footerText}>{locale.noAccount}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
